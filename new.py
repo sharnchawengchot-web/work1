@@ -1,17 +1,5 @@
 import streamlit as st
 import pandas as pd
-st.write("h1")
-
-x = st.text_input("whats yourname")
-st.write(f"hello{x}")
-
-df = pd.read_csv('sustainable_waste_management_dataset_2024.csv')
-st.write(df)
-
-# st.table(df)
-
-
-
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -36,17 +24,14 @@ df_combined.dropna(inplace=True)
 X = df_combined[selected_features]
 y = df_combined['recyclable_kg']
 
-st.write("Shape of X:", X.shape)
-st.write("Shape of y:", y.shape)
-
 # แบ่ง dataframe เป็น 2 ส่วนหลัก ๆ โดยมีส่วนที่ใช้สำหรับฝึกโมเดลและทดสอบโมเดล
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 model = LinearRegression()
 model.fit(X_train, Y_train)
 Y_pred = model.predict(X_test)
 
-st.write("MSE: ", mean_squared_error(Y_test, Y_pred))
-st.write("R squared: ", r2_score(Y_test, Y_pred))
+
+
 
 # พล็อตกราฟเปรียบเทียบ
 plt.figure(figsize=(10, 6))
@@ -57,4 +42,28 @@ plt.ylabel('Ycor')
 plt.title('Predict')
 plt.legend()
 plt.grid(True)
-st.pyplot(plt)
+
+
+#แสดง ผลทางหน้าจอ 
+
+
+st.write("Untitle Webside")
+
+if 'show' not in st.session_state:
+    st.session_state.show_ai = False
+
+if st.button("Ai status"):
+    st.session_state.show_ai = not st.session_state.show_ai
+
+if st.session_state.show_ai:
+    st.write("ความเฉลี่ยความคลาดเคลื่อน:", mean_squared_error(Y_test, Y_pred))
+    st.write("R square: ", r2_score(Y_test, Y_pred))
+
+if 'show' not in st.session_state:
+    st.session_state.show_graph = False
+
+if st.button("Linear graph"):
+    st.session_state.show_graph = not st.session_state.show_graph
+
+if st.session_state.show_graph:
+    st.pyplot(plt)
