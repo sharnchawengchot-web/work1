@@ -45,8 +45,8 @@ model = LinearRegression()
 model.fit(X_train, Y_train)
 Y_pred = model.predict(X_test)
 
-print("MSE: ", mean_squared_error(Y_test, Y_pred))
-print("R squared: ", r2_score(Y_test, Y_pred))
+st.write("MSE: ", mean_squared_error(Y_test, Y_pred))
+st.write("R squared: ", r2_score(Y_test, Y_pred))
 
 # พล็อตกราฟเปรียบเทียบ
 plt.figure(figsize=(10, 6))
