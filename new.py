@@ -67,3 +67,5 @@ if st.button("Linear graph"):
 
 if st.session_state.show_graph:
     st.pyplot(plt)
+
+#c3RyZW1saXQgaHVhIGt1YXk=
